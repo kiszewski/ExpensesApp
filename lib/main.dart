@@ -11,15 +11,22 @@ class ExpensesApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: MyHomePage(),
+      theme: ThemeData(
+        primaryColor: Colors.deepOrangeAccent[100],
+        ),
     );
   }
 }
 
 class MyHomePage extends StatelessWidget {
+  // Temporarios:
+  final titleController = TextEditingController();
+  final valueController = TextEditingController();
+
   final _transactions = [
     Transaction(
       id: 't1',
-      name: 'Tenis',
+      name: 'Tênis',
       value: 349.99,
       date: DateTime.now(),
     ),
@@ -36,14 +43,15 @@ class MyHomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Despesas pessoais'),
+        centerTitle: true,
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           Card(
             elevation: 5,
-            child: Text('Grafico'),
+            child: Text('Gráfico'),
           ),
           Column(
               children: _transactions.map((tr) {
@@ -58,21 +66,62 @@ class MyHomePage extends StatelessWidget {
                     padding: EdgeInsets.all(10),
                     child: Text(
                       'R\$ ${tr.value.toStringAsFixed(2)}',
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        fontSize: 20, 
+                        fontWeight: FontWeight.bold,
+                        color: Colors.deepOrangeAccent[100]
+                         ),
                     ),
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Text(tr.name, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                      Text(DateFormat('d MMM y').format(tr.date), style: TextStyle(color: Colors.grey))
+                      Text(
+                        tr.name, 
+                        style: TextStyle(
+                          fontSize: 16, 
+                          fontWeight: FontWeight.bold,
+                          )),
+                      Text(
+                        DateFormat('d MMM y').format(tr.date), 
+                        style: TextStyle(color: Colors.grey))
                     ],
                   )
                 ],
               ),
             );
           }).toList()),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: <Widget>[
+                TextField(
+                  controller: titleController,
+                  decoration: InputDecoration(
+                    labelText: 'Despesa'),
+                ),
+                TextField(
+                  controller: valueController,
+                  decoration: InputDecoration(
+                    labelText: 'Valor (R\$)'),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    FlatButton(
+                      textColor: Colors.deepOrangeAccent[100],
+                      child: Text('Nova transação'),
+                      onPressed: () {
+                        print(titleController.text);
+                        print(valueController.text);
+                      },
+                    ),
+                  ],
+                )
+              ],
+            ),
+          )
         ],
       ),
     );
