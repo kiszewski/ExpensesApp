@@ -4,11 +4,14 @@ class TransactionForm extends StatelessWidget {
   // Temporarios:
   final titleController = TextEditingController();
   final valueController = TextEditingController();
+  final void Function({String name, String value}) saveForm;
+
+  TransactionForm(this.saveForm);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(10),
       child: Column(
         children: <Widget>[
           TextField(
@@ -26,8 +29,10 @@ class TransactionForm extends StatelessWidget {
                 textColor: Colors.deepOrangeAccent[100],
                 child: Text('Nova transação'),
                 onPressed: () {
-                  print(titleController.text);
-                  print(valueController.text);
+                  saveForm(
+                    name: titleController.text,
+                    value: valueController.text
+                  );
                 },
               ),
             ],

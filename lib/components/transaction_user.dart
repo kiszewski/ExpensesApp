@@ -11,26 +11,38 @@ class TransactionUser extends StatefulWidget {
 class _TransactionUserState extends State<TransactionUser> {
   final _transactions = [
     Transaction(
-      id: 't1',
+      id: 1,
       name: 'Tênis',
       value: 349.99,
       date: DateTime.now(),
     ),
     Transaction(
-      id: 't2',
+      id: 2,
       name: 'Mochila',
       value: 99.90,
       date: DateTime.now(),
     ),
   ];
 
+  saveForm({String name, String value}) {
+    var transaction = new Transaction(
+      id: _transactions.length + 1, 
+      name: name, 
+      value: double.parse(value), 
+      date: DateTime.now());
+
+    setState(() {
+      _transactions.add(transaction);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
         TransactionList(_transactions),
-        TransactionForm()
-        ],
+        TransactionForm(saveForm)
+      ],
     );
   }
 }
