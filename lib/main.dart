@@ -26,16 +26,18 @@ class MyHomePage extends StatelessWidget {
         title: Text('Despesas pessoais'),
         centerTitle: true,
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-          Card(
-            elevation: 5,
-            child: Text('Gráfico'),
-          ),
-          TransactionUser()
-        ],
+      body: SingleChildScrollView(
+              child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            Card(
+              elevation: 5,
+              child: Text('Gráfico'),
+            ),
+            TransactionUser()
+          ],
+        ),
       ),
     );
   }
