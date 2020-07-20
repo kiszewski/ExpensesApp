@@ -14,7 +14,13 @@ class ExpensesApp extends StatelessWidget {
       home: MyHomePage(),
       theme: ThemeData(
         primarySwatch: Colors.red,
-        accentColor: Colors.green[300]
+        accentColor: Colors.green[300],
+        fontFamily: 'Epilogue',
+        appBarTheme: AppBarTheme(
+          textTheme: ThemeData.light().textTheme.copyWith(
+            headline6: TextStyle(fontFamily: 'Ranchers', fontSize: 25)
+          )
+        ),
       ),
     );
   }
@@ -58,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Despesas pessoais'),
+        title: Text('Despesas Pessoais'),
         centerTitle: true,
         actions: <Widget>[
           IconButton(
@@ -70,16 +76,16 @@ class _MyHomePageState extends State<MyHomePage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            Card(
-              elevation: 5,
-              child: Text('Gráfico'),
-            ),
+            // Card(
+            //   elevation: 5,
+            //   child: Text('Gráfico'),
+            // ),
             TransactionList(_transactions),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
+        child: Icon(Icons.add, color: Colors.white,),
         onPressed: () => _showTransactionModal(context)),
     );
   }

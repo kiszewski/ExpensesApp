@@ -33,7 +33,7 @@ class TransactionList extends StatelessWidget {
                         'R\$ ${tr.value.toStringAsFixed(2)}',
                         style: TextStyle(
                             fontSize: 15,
-                            fontWeight: FontWeight.bold,
+                            fontWeight: FontWeight.w600,
                             color: Theme.of(context).accentColor),
                       ),
                     ),
@@ -45,7 +45,7 @@ class TransactionList extends StatelessWidget {
                   children: <Widget>[
                     Text(tr.name,
                         style: TextStyle(
-                          fontSize: 16,
+                          fontSize: 20,
                           fontWeight: FontWeight.bold,
                         )),
                     Text(DateFormat('d MMM y').format(tr.date),
