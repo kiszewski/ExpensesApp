@@ -13,7 +13,8 @@ class ExpensesApp extends StatelessWidget {
     return MaterialApp(
       home: MyHomePage(),
       theme: ThemeData(
-        primaryColor: Colors.deepOrangeAccent[100],
+        primarySwatch: Colors.red,
+        accentColor: Colors.green[300]
       ),
     );
   }
@@ -36,10 +37,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   _showTransactionModal(BuildContext context) {
     showModalBottomSheet(
-        context: context, builder: (ctx) => TransactionForm(saveForm));
+        context: context, builder: (ctx) => TransactionForm(addTransaction));
   }
 
-  saveForm({String name, double value}) {
+  addTransaction({String name, double value}) {
     var transaction = new Transaction(
         id: _transactions.length + 1,
         name: name,
@@ -49,6 +50,8 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       _transactions.add(transaction);
     });
+
+    Navigator.of(context).pop();
   }
 
   @override
@@ -75,6 +78,9 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () => _showTransactionModal(context)),
     );
   }
 }

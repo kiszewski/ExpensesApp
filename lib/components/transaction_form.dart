@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class TransactionForm extends StatefulWidget {
-  final void Function({String name, double value}) saveForm;
+  final void Function({String name, double value}) addTransaction;
 
-  TransactionForm(this.saveForm);
+  TransactionForm(this.addTransaction);
 
   @override
   _TransactionFormState createState() => _TransactionFormState();
@@ -21,7 +21,7 @@ class _TransactionFormState extends State<TransactionForm> {
     if(title.isEmpty || value <= 0) {
       return;
     }
-    widget.saveForm(name: title, value: value);
+    widget.addTransaction(name: title, value: value);
   }
 
   @override
@@ -45,7 +45,7 @@ class _TransactionFormState extends State<TransactionForm> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
               FlatButton(
-                color: Colors.deepOrangeAccent[100],
+                textColor: Theme.of(context).primaryColor,
                 child: Text('Nova transação'),
                 onPressed: _submitForm,
               ),
