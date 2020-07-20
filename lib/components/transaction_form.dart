@@ -4,9 +4,19 @@ class TransactionForm extends StatelessWidget {
   // Temporarios:
   final titleController = TextEditingController();
   final valueController = TextEditingController();
-  final void Function({String name, String value}) saveForm;
+  final void Function({String name, double value}) saveForm;
 
   TransactionForm(this.saveForm);
+
+  _submitForm() {
+    final title = titleController.text;
+    final value = double.tryParse(valueController.text) ?? 0.0;
+
+    if(title.isEmpty || value <= 0) {
+      return;
+    }
+    saveForm(name: title, value: value);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,10 +26,13 @@ class TransactionForm extends StatelessWidget {
         children: <Widget>[
           TextField(
             controller: titleController,
+            onSubmitted: (_) => _submitForm(),
             decoration: InputDecoration(labelText: 'Despesa'),
           ),
           TextField(
             controller: valueController,
+            onSubmitted: (_) => _submitForm(),
+            keyboardType: TextInputType.numberWithOptions(decimal: true), //essa função serve p dispositivos iOS
             decoration: InputDecoration(labelText: 'Valor (R\$)'),
           ),
           Row(
@@ -28,12 +41,7 @@ class TransactionForm extends StatelessWidget {
               FlatButton(
                 color: Colors.deepOrangeAccent[100],
                 child: Text('Nova transação'),
-                onPressed: () {
-                  saveForm(
-                    name: titleController.text,
-                    value: valueController.text
-                  );
-                },
+                onPressed: _submitForm,
               ),
             ],
           )

@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'transaction_form.dart';
 import 'transaction_list.dart';
@@ -36,11 +38,11 @@ class _TransactionUserState extends State<TransactionUser> {
     ),
   ];
 
-  saveForm({String name, String value}) {
+  saveForm({String name, double value}) {
     var transaction = new Transaction(
       id: _transactions.length + 1, 
       name: name, 
-      value: double.parse(value), 
+      value: value, 
       date: DateTime.now());
 
     setState(() {
