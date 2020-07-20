@@ -31,6 +31,7 @@ class _TransactionFormState extends State<TransactionForm> {
       child: Column(
         children: <Widget>[
           TextField(
+            keyboardType: TextInputType.text,
             controller: titleController,
             onSubmitted: (_) => _submitForm(),
             decoration: InputDecoration(labelText: 'Despesa'),

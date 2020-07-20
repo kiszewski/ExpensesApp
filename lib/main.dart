@@ -32,13 +32,13 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final _transactions = [
-    Transaction(
-      id: 1,
-      name: 'Tênis',
-      value: 349.99,
-      date: DateTime.now(),
-    ),
+  final List<Transaction> _transactions = [
+    // Transaction(
+    //   id: 1,
+    //   name: 'Tênis',
+    //   value: 349.99,
+    //   date: DateTime.now(),
+    // ),
   ];
 
   _showTransactionModal(BuildContext context) {
