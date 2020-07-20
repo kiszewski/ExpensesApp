@@ -22,6 +22,18 @@ class _TransactionUserState extends State<TransactionUser> {
       value: 99.90,
       date: DateTime.now(),
     ),
+    Transaction(
+      id: 2,
+      name: 'Mochila',
+      value: 99.90,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: 2,
+      name: 'Mochila',
+      value: 99.90,
+      date: DateTime.now(),
+    ),
   ];
 
   saveForm({String name, String value}) {
