@@ -33,7 +33,6 @@ class TransactionList extends StatelessWidget {
               itemCount: transactions.length,
               itemBuilder: (ctx, index) {
                 final tr = transactions[index];
-                print(index);
                 return Card(
                   child: Row(
                     children: <Widget>[

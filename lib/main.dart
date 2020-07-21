@@ -1,5 +1,6 @@
 import 'components/transaction_form.dart';
 import 'components/transaction_list.dart';
+import 'components/chart.dart';
 import 'package:flutter/material.dart';
 import 'models/transaction.dart';
 
@@ -33,12 +34,12 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _transactions = [
-    // Transaction(
-    //   id: 1,
-    //   name: 'Tênis',
-    //   value: 349.99,
-    //   date: DateTime.now(),
-    // ),
+    Transaction(
+      id: 1,
+      name: 'Tênis',
+      value: 349.99,
+      date: DateTime.now(),
+    ),
   ];
 
   _showTransactionModal(BuildContext context) {
@@ -76,10 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            // Card(
-            //   elevation: 5,
-            //   child: Text('Gráfico'),
-            // ),
+            Chart(recentTransactions: _transactions),
             TransactionList(_transactions),
           ],
         ),
