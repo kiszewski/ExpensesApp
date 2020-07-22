@@ -36,11 +36,29 @@ class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _transactions = [
     Transaction(
       id: 1,
+      name: 'Antiga',
+      value: 1000,
+      date: DateTime.now().subtract(Duration(days: 45)),
+    ),
+    Transaction(
+      id: 2,
       name: 'Tênis',
       value: 349.99,
-      date: DateTime.now(),
+      date: DateTime.now().subtract(Duration(days: 2)),
+    ),
+    Transaction(
+      id: 3,
+      name: 'Camiseta',
+      value: 99.99,
+      date: DateTime.now().subtract(Duration(days: 1)),
     ),
   ];
+
+  List<Transaction> get _recentTransactions {
+    return _transactions.where((tr) {
+      return tr.date.isAfter(DateTime.now().subtract(Duration(days: 7)));
+    }).toList();
+  }
 
   _showTransactionModal(BuildContext context) {
     showModalBottomSheet(
@@ -77,7 +95,7 @@ class _MyHomePageState extends State<MyHomePage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            Chart(recentTransactions: _transactions),
+            Chart(recentTransactions: _recentTransactions),
             TransactionList(_transactions),
           ],
         ),
