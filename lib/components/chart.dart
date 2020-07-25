@@ -1,3 +1,4 @@
+import 'package:expenses/components/chart_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../models/transaction.dart';
@@ -8,10 +9,17 @@ class Chart extends StatelessWidget {
   Chart({this.recentTransactions});
 
   List<Map<String, Object>> get groupedTransactions {
+    double totalWeekSpent = 0.0;
+
+    recentTransactions.forEach((tr) { 
+      totalWeekSpent = totalWeekSpent + tr.value;
+    });
+
     return List.generate(7, (index) {
       final weekDay = DateTime.now().subtract(Duration(days: index));
 
       double totalSpent = 0.0;
+      double percent = 0.0;
       if (recentTransactions.length != 0) {
         recentTransactions.forEach((tr) {
           bool sameDay =
@@ -23,6 +31,7 @@ class Chart extends StatelessWidget {
 
           if (sameDay && sameMonth && sameYear) {
             totalSpent = totalSpent + tr.value;
+            percent = ((totalSpent * 100) / totalWeekSpent) / 100;
           }
         });
       }
@@ -30,6 +39,7 @@ class Chart extends StatelessWidget {
       return {
         'weekDay': DateFormat.E().format(weekDay)[0],
         'totalSpent': totalSpent,
+        'percent': percent
       };
     });
   }
@@ -41,11 +51,10 @@ class Chart extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: groupedTransactions.map((tr) {
-            return Column(
-              children: <Widget>[
-                Text(tr['weekDay']),
-                Text(tr['totalSpent'].toString()),
-              ],
+            return ChartBar(
+              weekDay: tr['weekDay'],
+              totalSpent: tr['totalSpent'],
+              percent: tr['percent'],
             );
           }).toList(),
         ));
