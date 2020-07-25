@@ -17,11 +17,15 @@ class ExpensesApp extends StatelessWidget {
         primarySwatch: Colors.red,
         accentColor: Colors.green[300],
         fontFamily: 'Epilogue',
+        textTheme: ThemeData.light().textTheme.copyWith(
+              button: TextStyle(
+                color: Colors.white,
+              ),
+            ),
         appBarTheme: AppBarTheme(
-          textTheme: ThemeData.light().textTheme.copyWith(
-            headline6: TextStyle(fontFamily: 'Ranchers', fontSize: 25)
-          )
-        ),
+            textTheme: ThemeData.light().textTheme.copyWith(
+                  headline6: TextStyle(fontFamily: 'Ranchers', fontSize: 25),
+                )),
       ),
     );
   }
@@ -33,50 +37,35 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final List<Transaction> _transactions = [
-    Transaction(
-      id: 1,
-      name: 'Antiga',
-      value: 1000,
-      date: DateTime.now().subtract(Duration(days: 45)),
-    ),
-    Transaction(
-      id: 2,
-      name: 'Tênis',
-      value: 90,
-      date: DateTime.now().subtract(Duration(days: 2)),
-    ),
-    Transaction(
-      id: 3,
-      name: 'Camiseta',
-      value: 10,
-      date: DateTime.now().subtract(Duration(days: 1)),
-    ),
-  ];
+  final List<Transaction> _transactions = [];
 
   List<Transaction> get _recentTransactions {
     return _transactions.where((tr) {
-      return tr.date.isAfter(DateTime.now().subtract(Duration(days: 7)));
+      return tr.date.isAfter(DateTime.now().subtract(Duration(days: 7))) &&
+          tr.date.isBefore(DateTime.now());
     }).toList();
   }
 
   _showTransactionModal(BuildContext context) {
     showModalBottomSheet(
-        context: context, builder: (ctx) => TransactionForm(addTransaction));
+        context: context, builder: (ctx) => TransactionForm(_addTransaction));
   }
 
-  addTransaction({String name, double value}) {
+  _addTransaction({String name, double value, DateTime date}) {
     var transaction = new Transaction(
-        id: _transactions.length + 1,
-        name: name,
-        value: value,
-        date: DateTime.now());
+        id: _transactions.length + 1, name: name, value: value, date: date);
 
     setState(() {
       _transactions.add(transaction);
     });
 
     Navigator.of(context).pop();
+  }
+
+  _delete(Transaction tr) {
+    setState(() {
+      _transactions.remove(tr);
+    });
   }
 
   @override
@@ -87,7 +76,8 @@ class _MyHomePageState extends State<MyHomePage> {
         centerTitle: true,
         actions: <Widget>[
           IconButton(
-              icon: Icon(Icons.add), onPressed: () => _showTransactionModal(context))
+              icon: Icon(Icons.add),
+              onPressed: () => _showTransactionModal(context))
         ],
       ),
       body: SingleChildScrollView(
@@ -96,13 +86,16 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Chart(recentTransactions: _recentTransactions),
-            TransactionList(_transactions),
+            TransactionList(_transactions, _delete),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add, color: Colors.white,),
-        onPressed: () => _showTransactionModal(context)),
+          child: Icon(
+            Icons.add,
+            color: Colors.white,
+          ),
+          onPressed: () => _showTransactionModal(context)),
     );
   }
 }

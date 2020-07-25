@@ -5,7 +5,9 @@ import 'package:intl/intl.dart';
 class TransactionList extends StatelessWidget {
   final List<Transaction> transactions;
 
-  TransactionList(this.transactions);
+  final void Function(Transaction tr) _delete;
+
+  TransactionList(this.transactions, this._delete);
 
   @override
   Widget build(BuildContext context) {
@@ -57,21 +59,30 @@ class TransactionList extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Text(tr.name,
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              )),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Text(DateFormat('d MMM y').format(tr.date),
-                              style: TextStyle(color: Colors.grey))
-                        ],
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Text(tr.name,
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                )),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Text(DateFormat('d MMM y').format(tr.date),
+                                style: TextStyle(color: Colors.grey))
+                          ],
+                        ),
+                      ),
+                      IconButton(
+                        color: Theme.of(context).primaryColor,
+                        icon: Icon(Icons.delete_outline),
+                        onPressed: () {
+                          _delete(tr);
+                        },
                       )
                     ],
                   ),
