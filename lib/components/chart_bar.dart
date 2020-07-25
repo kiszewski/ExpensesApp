@@ -15,10 +15,15 @@ class ChartBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        Text('R\$ $totalSpent'),
-        SizedBox(
-          height: 10,
-        ),
+        Container(
+            height: 15,
+            width: 50,
+            child: FittedBox(
+                child: Text(
+              '$totalSpent',
+              style: TextStyle(fontSize: 30),
+            ))),
+        SizedBox(height: 5),
         Container(
           height: 60,
           width: 10,
@@ -42,9 +47,7 @@ class ChartBar extends StatelessWidget {
             ],
           ),
         ),
-        SizedBox(
-          height: 10,
-        ),
+        SizedBox(height: 10),
         Text(weekDay),
       ],
     );

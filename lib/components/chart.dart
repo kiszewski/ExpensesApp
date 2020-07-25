@@ -11,7 +11,7 @@ class Chart extends StatelessWidget {
   List<Map<String, Object>> get groupedTransactions {
     double totalWeekSpent = 0.0;
 
-    recentTransactions.forEach((tr) { 
+    recentTransactions.forEach((tr) {
       totalWeekSpent = totalWeekSpent + tr.value;
     });
 
@@ -41,22 +41,26 @@ class Chart extends StatelessWidget {
         'totalSpent': totalSpent,
         'percent': percent
       };
-    });
+    }).reversed.toList();
   }
 
   @override
   Widget build(BuildContext context) {
     return Card(
         elevation: 5,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: groupedTransactions.map((tr) {
-            return ChartBar(
-              weekDay: tr['weekDay'],
-              totalSpent: tr['totalSpent'],
-              percent: tr['percent'],
-            );
-          }).toList(),
+        margin: EdgeInsets.all(10),
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 5),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: groupedTransactions.map((tr) {
+              return ChartBar(
+                weekDay: tr['weekDay'],
+                totalSpent: tr['totalSpent'],
+                percent: tr['percent'],
+              );
+            }).toList(),
+          ),
         ));
   }
 }
