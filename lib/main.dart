@@ -62,7 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
     Navigator.of(context).pop();
   }
 
-  _delete(Transaction tr) {
+  _deleteTransaction(Transaction tr) {
     setState(() {
       _transactions.remove(tr);
     });
@@ -70,23 +70,32 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final appBar = AppBar(
+      title: Text('Despesas Pessoais'),
+      centerTitle: true,
+      actions: <Widget>[
+        IconButton(
+            icon: Icon(Icons.add),
+            onPressed: () => _showTransactionModal(context))
+      ],
+    );
+    final availableHeight = MediaQuery.of(context).size.height -
+        appBar.preferredSize.height -
+        MediaQuery.of(context).padding.top;
+
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Despesas Pessoais'),
-        centerTitle: true,
-        actions: <Widget>[
-          IconButton(
-              icon: Icon(Icons.add),
-              onPressed: () => _showTransactionModal(context))
-        ],
-      ),
+      appBar: appBar,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            Chart(recentTransactions: _recentTransactions),
-            TransactionList(_transactions, _delete),
+            Container(
+                height: availableHeight * 0.3,
+                child: Chart(recentTransactions: _recentTransactions)),
+            Container(
+                height: availableHeight * 0.7,
+                child: TransactionList(_transactions, _deleteTransaction)),
           ],
         ),
       ),
