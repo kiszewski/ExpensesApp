@@ -71,7 +71,12 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     final appBar = AppBar(
-      title: Text('Despesas Pessoais'),
+      title: Text(
+        'Despesas Pessoais',
+        style: TextStyle(
+          fontSize: 25 * MediaQuery.of(context).textScaleFactor 
+        ),
+      ),
       centerTitle: true,
       actions: <Widget>[
         IconButton(
@@ -91,10 +96,10 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Container(
-                height: availableHeight * 0.3,
+                height: availableHeight * 0.25,
                 child: Chart(recentTransactions: _recentTransactions)),
             Container(
-                height: availableHeight * 0.7,
+                height: availableHeight * 0.75,
                 child: TransactionList(_transactions, _deleteTransaction)),
           ],
         ),
