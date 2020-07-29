@@ -38,6 +38,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _transactions = [];
+  bool _isLandscape = false;
+  bool _showChart = false;
 
   List<Transaction> get _recentTransactions {
     return _transactions.where((tr) {
@@ -68,22 +70,35 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  _switchChartList() {
+    setState(() {
+      _showChart = !_showChart;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    _isLandscape = MediaQuery.of(context).orientation == Orientation.landscape;
+
     final appBar = AppBar(
       title: Text(
         'Despesas Pessoais',
-        style: TextStyle(
-          fontSize: 25 * MediaQuery.of(context).textScaleFactor 
-        ),
+        style: TextStyle(fontSize: 25 * MediaQuery.of(context).textScaleFactor),
       ),
+      leading: _isLandscape
+          ? IconButton(
+              icon: _showChart ? Icon(Icons.format_list_bulleted) : Icon(Icons.insert_chart),
+              onPressed: _switchChartList,
+            )
+          : null,
       centerTitle: true,
       actions: <Widget>[
         IconButton(
             icon: Icon(Icons.add),
-            onPressed: () => _showTransactionModal(context))
+            onPressed: () => _showTransactionModal(context)),
       ],
     );
+
     final availableHeight = MediaQuery.of(context).size.height -
         appBar.preferredSize.height -
         MediaQuery.of(context).padding.top;
@@ -95,11 +110,13 @@ class _MyHomePageState extends State<MyHomePage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
+            if(!_isLandscape || _showChart)
             Container(
-                height: availableHeight * 0.25,
+                height: _isLandscape ? availableHeight * 0.5 : availableHeight * 0.25,
                 child: Chart(recentTransactions: _recentTransactions)),
+            if(!_isLandscape || !_showChart)
             Container(
-                height: availableHeight * 0.75,
+                height: _isLandscape ? availableHeight * 0.8 : availableHeight * 0.75,
                 child: TransactionList(_transactions, _deleteTransaction)),
           ],
         ),
