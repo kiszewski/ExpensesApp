@@ -50,7 +50,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   _showTransactionModal(BuildContext context) {
     showModalBottomSheet(
-        context: context, builder: (ctx) => TransactionForm(_addTransaction));
+        isScrollControlled: true,
+        context: context,
+        builder: (ctx) => TransactionForm(_addTransaction));
   }
 
   _addTransaction({String name, double value, DateTime date}) {
@@ -87,7 +89,9 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       leading: _isLandscape
           ? IconButton(
-              icon: _showChart ? Icon(Icons.format_list_bulleted) : Icon(Icons.insert_chart),
+              icon: _showChart
+                  ? Icon(Icons.format_list_bulleted)
+                  : Icon(Icons.insert_chart),
               onPressed: _switchChartList,
             )
           : null,
@@ -110,14 +114,18 @@ class _MyHomePageState extends State<MyHomePage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            if(!_isLandscape || _showChart)
-            Container(
-                height: _isLandscape ? availableHeight * 0.5 : availableHeight * 0.25,
-                child: Chart(recentTransactions: _recentTransactions)),
-            if(!_isLandscape || !_showChart)
-            Container(
-                height: _isLandscape ? availableHeight * 0.8 : availableHeight * 0.75,
-                child: TransactionList(_transactions, _deleteTransaction)),
+            if (!_isLandscape || _showChart)
+              Container(
+                  height: _isLandscape
+                      ? availableHeight * 0.5
+                      : availableHeight * 0.25,
+                  child: Chart(recentTransactions: _recentTransactions)),
+            if (!_isLandscape || !_showChart)
+              Container(
+                  height: _isLandscape
+                      ? availableHeight * 0.8
+                      : availableHeight * 0.75,
+                  child: TransactionList(_transactions, _deleteTransaction)),
           ],
         ),
       ),

@@ -48,12 +48,15 @@ class _TransactionFormState extends State<TransactionForm> {
     return Padding(
       padding: const EdgeInsets.all(10),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           TextField(
             keyboardType: TextInputType.text,
             controller: titleController,
             onSubmitted: (_) => _submitForm(),
             decoration: InputDecoration(labelText: 'Despesa'),
+            autofocus: true,
           ),
           TextField(
             controller: valueController,
@@ -78,16 +81,19 @@ class _TransactionFormState extends State<TransactionForm> {
               ],
             ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              RaisedButton(
-                color: Theme.of(context).primaryColor,
-                textColor: Theme.of(context).textTheme.button.color,
-                child: Text('Nova transação'),
-                onPressed: _submitForm,
-              ),
-            ],
+          Padding(
+            padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                RaisedButton(
+                  color: Theme.of(context).primaryColor,
+                  textColor: Theme.of(context).textTheme.button.color,
+                  child: Text('Nova transação'),
+                  onPressed: _submitForm,
+                ),
+              ],
+            ),
           )
         ],
       ),
