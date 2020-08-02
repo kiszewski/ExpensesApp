@@ -14,7 +14,7 @@ class ExpensesApp extends StatelessWidget {
     return MaterialApp(
       home: MyHomePage(),
       theme: ThemeData(
-        primarySwatch: Colors.red,
+        primarySwatch:  Colors.red,
         accentColor: Colors.green[300],
         fontFamily: 'Epilogue',
         textTheme: ThemeData.light().textTheme.copyWith(
@@ -24,7 +24,7 @@ class ExpensesApp extends StatelessWidget {
             ),
         appBarTheme: AppBarTheme(
             textTheme: ThemeData.light().textTheme.copyWith(
-                  headline6: TextStyle(fontFamily: 'Ranchers', fontSize: 25),
+                  headline6: const TextStyle(fontFamily: 'Ranchers', fontSize: 25),
                 )),
       ),
     );
@@ -90,15 +90,15 @@ class _MyHomePageState extends State<MyHomePage> {
       leading: _isLandscape
           ? IconButton(
               icon: _showChart
-                  ? Icon(Icons.format_list_bulleted)
-                  : Icon(Icons.insert_chart),
+                  ? const Icon(Icons.format_list_bulleted)
+                  : const Icon(Icons.insert_chart),
               onPressed: _switchChartList,
             )
           : null,
       centerTitle: true,
       actions: <Widget>[
         IconButton(
-            icon: Icon(Icons.add),
+            icon: const Icon(Icons.add),
             onPressed: () => _showTransactionModal(context)),
       ],
     );
@@ -130,7 +130,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-          child: Icon(
+          child: const Icon(
             Icons.add,
             color: Colors.white,
           ),

@@ -23,7 +23,7 @@ class ChartBar extends StatelessWidget {
                 child: FittedBox(
                     child: Text(
                   '$totalSpent',
-                  style: TextStyle(fontSize: 30),
+                  style: const TextStyle(fontSize: 30),
                 ))),
             SizedBox(height: constraints.maxHeight * 0.05),
             Container(

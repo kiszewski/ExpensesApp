@@ -15,12 +15,12 @@ class TransactionList extends StatelessWidget {
         ? LayoutBuilder(builder: (ctx, constraints) {
             return Column(
               children: <Widget>[
-                SizedBox(height: 20),
-                Text(
+                const SizedBox(height: 20),
+                const Text(
                   'Nenhuma despesa listada',
                   style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Container(
                   height: constraints.maxHeight * 0.6,
                   child: Image.asset(
@@ -40,10 +40,10 @@ class TransactionList extends StatelessWidget {
                   children: <Widget>[
                     Container(
                       margin:
-                          EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                      padding: EdgeInsets.all(5),
+                          const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                      padding: const EdgeInsets.all(5),
                       child: ConstrainedBox(
-                        constraints: BoxConstraints(
+                        constraints: const BoxConstraints(
                             maxHeight: 35,
                             maxWidth: 75,
                             minHeight: 35,
@@ -69,7 +69,7 @@ class TransactionList extends StatelessWidget {
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
                               )),
-                          SizedBox(
+                          const SizedBox(
                             height: 5,
                           ),
                           Text(DateFormat('d MMM y').format(tr.date),
@@ -79,7 +79,7 @@ class TransactionList extends StatelessWidget {
                     ),
                     IconButton(
                       color: Theme.of(context).primaryColor,
-                      icon: Icon(Icons.delete_outline),
+                      icon: const Icon(Icons.delete_outline),
                       onPressed: () {
                         _delete(tr);
                       },
