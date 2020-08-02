@@ -5,9 +5,9 @@ import 'package:intl/intl.dart';
 class TransactionList extends StatelessWidget {
   final List<Transaction> transactions;
 
-  final void Function(Transaction tr) _delete;
+  final void Function(Transaction tr) _deleteTransaction;
 
-  TransactionList(this.transactions, this._delete);
+  TransactionList(this.transactions, this._deleteTransaction);
 
   @override
   Widget build(BuildContext context) {
@@ -35,12 +35,13 @@ class TransactionList extends StatelessWidget {
             itemCount: transactions.length,
             itemBuilder: (ctx, index) {
               final tr = transactions[index];
+
               return Card(
                 child: Row(
                   children: <Widget>[
                     Container(
-                      margin:
-                          const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 10),
                       padding: const EdgeInsets.all(5),
                       child: ConstrainedBox(
                         constraints: const BoxConstraints(
@@ -64,25 +65,25 @@ class TransactionList extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          Text(tr.name,
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              )),
-                          const SizedBox(
-                            height: 5,
+                          Text(
+                            tr.name,
+                            style: const TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                          Text(DateFormat('d MMM y').format(tr.date),
-                              style: TextStyle(color: Colors.grey))
+                          const SizedBox(height: 5),
+                          Text(
+                            DateFormat('d MMM y').format(tr.date),
+                            style: TextStyle(color: Colors.grey),
+                          )
                         ],
                       ),
                     ),
                     IconButton(
                       color: Theme.of(context).primaryColor,
                       icon: const Icon(Icons.delete_outline),
-                      onPressed: () {
-                        _delete(tr);
-                      },
+                      onPressed: () => _deleteTransaction(tr),
                     )
                   ],
                 ),

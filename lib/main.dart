@@ -4,9 +4,7 @@ import 'components/chart.dart';
 import 'package:flutter/material.dart';
 import 'models/transaction.dart';
 
-void main() {
-  runApp(ExpensesApp());
-}
+void main() => runApp(ExpensesApp());
 
 class ExpensesApp extends StatelessWidget {
   @override
@@ -14,17 +12,16 @@ class ExpensesApp extends StatelessWidget {
     return MaterialApp(
       home: MyHomePage(),
       theme: ThemeData(
-        primarySwatch:  Colors.red,
+        primarySwatch: Colors.red,
         accentColor: Colors.green[300],
         fontFamily: 'Epilogue',
         textTheme: ThemeData.light().textTheme.copyWith(
-              button: TextStyle(
-                color: Colors.white,
-              ),
+              button: TextStyle(color: Colors.white),
             ),
         appBarTheme: AppBarTheme(
             textTheme: ThemeData.light().textTheme.copyWith(
-                  headline6: const TextStyle(fontFamily: 'Ranchers', fontSize: 25),
+                  headline6:
+                      const TextStyle(fontFamily: 'Ranchers', fontSize: 25),
                 )),
       ),
     );
@@ -57,25 +54,23 @@ class _MyHomePageState extends State<MyHomePage> {
 
   _addTransaction({String name, double value, DateTime date}) {
     var transaction = new Transaction(
-        id: _transactions.length + 1, name: name, value: value, date: date);
+      id: _transactions.length + 1,
+      name: name,
+      value: value,
+      date: date,
+    );
 
-    setState(() {
-      _transactions.add(transaction);
-    });
+    setState(() => _transactions.add(transaction));
 
     Navigator.of(context).pop();
   }
 
   _deleteTransaction(Transaction tr) {
-    setState(() {
-      _transactions.remove(tr);
-    });
+    setState(() => _transactions.remove(tr));
   }
 
   _switchChartList() {
-    setState(() {
-      _showChart = !_showChart;
-    });
+    setState(() => _showChart = !_showChart);
   }
 
   @override
@@ -114,7 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            if (!_isLandscape || _showChart)
+            if (!_isLandscape || _showChart) 
               Container(
                   height: _isLandscape
                       ? availableHeight * 0.5

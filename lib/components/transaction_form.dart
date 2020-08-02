@@ -23,6 +23,7 @@ class _TransactionFormState extends State<TransactionForm> {
     if (title.isEmpty || value <= 0) {
       return;
     }
+
     widget.addTransaction(
       name: title,
       value: value,
@@ -70,11 +71,10 @@ class _TransactionFormState extends State<TransactionForm> {
               children: <Widget>[
                 Expanded(
                     child: Text(
-                        'Data selecionada: ${DateFormat('d MMM y').format(date)}')),
+                  'Data selecionada: ${DateFormat('d MMM y').format(date)}',
+                )),
                 FlatButton(
-                  child: const Text(
-                    'Selecionar outra data',
-                  ),
+                  child: const Text('Selecionar outra data'),
                   onPressed: _changeDate,
                   textColor: Theme.of(context).primaryColor,
                 ),
@@ -82,7 +82,8 @@ class _TransactionFormState extends State<TransactionForm> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+            padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
